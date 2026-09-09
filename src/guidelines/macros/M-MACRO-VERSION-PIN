@@ -1,0 +1,47 @@
+<!-- Copyright (c) Microsoft Corporation. Licensed under the MIT license. -->
+
+## Pin supporting proc macro crates (M-MACRO-VERSION-PIN) { #M-MACRO-VERSION-PIN }
+<why>keep minor updates semver compatible<why>
+
+This guideline applies to libraries that re-export macros from supporting proc macro crates
+where users depend on the main crate, not the supporting crates. Independently consumed macro
+libraries are outside its scope.
+
+A newer macro may generate code that uses a type or helper missing from an older library. To
+overcome this issue release the main crate and its supporting crates together, with the same
+version number. The main crate must pin its macro dependency to that exact version. If there
+is a separate macro implementation crate, pin that dependency too. Exact pins prevent Cargo
+from selecting that incompatible combination. Use "=1.2.3": plain "1.2.3" allows compatible
+updates.
+
+Update all three versions and their pins on each release, even if some crates have no code changes.
+Choose the version bump based on the main crate's public API, including its macros. Users do not need
+to exact-pin their dependency on the main crate.
+
+For example:
+
+```rust,ignore
+# my_crate/Cargo.toml
+[package]
+version = "1.2.3"
+
+[dependencies]
+my_crate_macros = "=1.2.3"
+
+# my_crate_macros/Cargo.toml
+[package]
+version = "1.2.3"
+
+[dependencies]
+my_crate_macros_impl = "=1.2.3"
+
+# my_crate_macros_impl/Cargo.toml
+[package]
+version = "1.2.3"
+```
+
+The `my_macro!` implementation would then rely on its presence in its emitted code:
+
+```rust,ignore
+impl ::foo::_private::Bar for MyType { ... }
+```
