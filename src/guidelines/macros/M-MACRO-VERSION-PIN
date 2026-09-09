@@ -39,9 +39,3 @@ my_crate_macros_impl = "=1.2.3"
 [package]
 version = "1.2.3"
 ```
-
-The `my_macro!` implementation would then rely on its presence in its emitted code:
-
-```rust,ignore
-impl ::foo::_private::Bar for MyType { ... }
-```
