@@ -1,6 +1,7 @@
 <!-- Copyright (c) Microsoft Corporation. Licensed under the MIT license. -->
 
 ## Pin supporting proc macro crates (M-MACRO-VERSION-PIN) { #M-MACRO-VERSION-PIN }
+
 <why>keep minor updates semver compatible<why>
 
 This guideline applies to libraries that re-export macros from supporting proc macro crates
