@@ -4,20 +4,18 @@
 
 <why>keep generated code compatible with its library</why>
 
-This guideline applies to libraries that re-export macros from supporting proc macro crates
-where users depend on the main crate, not the supporting crates. Independently consumed macro
-libraries are outside its scope.
+A crate that re-exports macros from a companion proc macro crate must pin that dependency
+to its own exact version (`=x.y.z`). This also applies to any separate macro implementation
+crate. Release these crates together with the same version number, even if some crates have
+no code changes.
 
-A newer macro may generate code that needs types or helpers unavailable in an older library.
-To keep them compatible, release the main crate and its supporting crates together, with
-matching version numbers and exact dependency pins. If there is a separate macro implementation
-crate, pin that dependency too. Use `=1.2.3`, not `1.2.3`, which allows compatible updates.
+Without exact pins, Cargo may upgrade the macro crate independently of the main crate.
+The newer macro may then generate code that uses types or helpers added in a newer library
+release, breaking compilation even when those additions were semver compatible.
 
-Update all package versions and their pins on each release, even if some crates have no code changes.
-Choose the version bump based on the main crate's public API, including its macros. Users do not need
-to exact-pin their dependency on the main crate.
+M-MACRO-VERSION-PIN does not apply to independently consumed macro libraries.
 
-For example:
+Example:
 
 ```toml
 # my_crate/Cargo.toml
