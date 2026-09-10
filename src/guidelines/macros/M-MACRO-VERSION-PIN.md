@@ -19,7 +19,7 @@ to exact-pin their dependency on the main crate.
 
 For example:
 
-```rust,ignore
+```toml
 # my_crate/Cargo.toml
 [package]
 version = "1.2.3"
