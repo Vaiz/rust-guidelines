@@ -4,10 +4,9 @@
 
 <why>keep generated code compatible with its library</why>
 
-A crate that re-exports macros from a companion proc macro crate must pin that dependency
-to its own exact version via `=x.y.z`. This also applies to any separate macro implementation
-crate. Release these crates together with the same version number, even if some crates have
-no code changes.
+A crate that re-exports macros from a companion proc macro crates must pin those dependencies
+to its own exact version via `=x.y.z` and publish all related crates at the same time with the
+same exact version. 
 
 Without exact pins, a newer macro may generate code that relies on types or helpers added
 in a newer library release. This can break compilation with an older library, even when
