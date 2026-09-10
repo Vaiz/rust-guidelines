@@ -5,7 +5,7 @@
 <why>keep generated code compatible with its library</why>
 
 A crate that re-exports macros from a companion proc macro crate must pin that dependency
-to its own exact version (`=x.y.z`). This also applies to any separate macro implementation
+to its own exact version via `=x.y.z`. This also applies to any separate macro implementation
 crate. Release these crates together with the same version number, even if some crates have
 no code changes.
 
