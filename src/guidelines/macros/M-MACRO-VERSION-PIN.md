@@ -9,9 +9,9 @@ to its own exact version via `=x.y.z`. This also applies to any separate macro i
 crate. Release these crates together with the same version number, even if some crates have
 no code changes.
 
-Without exact pins, Cargo may upgrade the macro crate independently of the main crate.
-The newer macro may then generate code that uses types or helpers added in a newer library
-release, breaking compilation even when those additions were semver compatible.
+Without exact pins, a newer macro may generate code that relies on types or helpers added
+in a newer library release. This can break compilation with an older library, even when
+the additions were semver compatible.
 
 M-MACRO-VERSION-PIN does not apply to independently consumed macro libraries.
 
